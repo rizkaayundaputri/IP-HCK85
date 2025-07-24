@@ -1,79 +1,135 @@
-import React, { useEffect, useState } from 'react'
-import http from '../lib/http'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchSongs, setPage, setSearch } from '../store/songsSlice'
 import CardSong from '../components/CardSong'
+import { FaSearch } from 'react-icons/fa'
 
 const Home = () => {
-  const [songs, setSongs] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [page, setPage] = useState(1)
-  const [totalPages, setTotalPages] = useState(1)
-  const [search, setSearch] = useState('')
+  const dispatch = useDispatch()
+  const { songs, loading, page, totalPages, search } = useSelector(state => state.songs)
 
   useEffect(() => {
-    setLoading(true)
-    http.get(`/songs?page=${page}&search=${encodeURIComponent(search)}`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` }
-    })
-      .then(res => {
-        setSongs(res.data.songs)
-        setTotalPages(res.data.totalPages)
-      })
-      .catch(() => setSongs([]))
-      .finally(() => setLoading(false))
-  }, [page, search])
+    dispatch(fetchSongs({ page, search }))
+  }, [dispatch, page, search])
 
   function handleSearch(e) {
     e.preventDefault()
-    setPage(1)
-    setSearch(e.target.search.value)
+    const searchValue = e.target.search.value.trim()
+
+    if (searchValue === '') {
+      // Reset search and fetch all songs if input is empty
+      dispatch(setSearch(''))
+      dispatch(fetchSongs({ page: 1, search: '' }))
+    } else {
+      // Update search state with input value
+      dispatch(setSearch(searchValue))
+    }
   }
 
   return (
-    <div className="container py-5">
-      <h1 className="mb-4 fw-bold text-primary">Song Collection</h1>
-      <form className="mb-4" onSubmit={handleSearch}>
-        <div className="input-group">
-          <input
-            type="text"
-            name="search"
-            className="form-control"
-            placeholder="Search by title or artist..."
-            defaultValue={search}
-          />
-          <button className="btn btn-outline-primary" type="submit">
-            Search
-          </button>
+
+    <>
+   <style>{`gradient-btn {
+            background: linear-gradient(135deg, #0b1a54ff 0%, #341ce7ff 100%);
+            border: none;
+            transition: all 0.3s ease;
+          }`}
+   </style>
+    <div className="container py-5 min-vh-100 ">
+      <div className="row mb-4 align-items-center justify-content-between">
+        <div className="col"></div>
+        <div className="col">
+          <form onSubmit={handleSearch}>
+            <div className="d-flex rounded-pill overflow-hidden shadow-sm gap-2">
+              <input
+                type="text"
+                name="search"
+                className="form-control border-0 px-4 py-2"
+                placeholder="Search by title or artist..."
+                defaultValue={search}
+                onInput={(e) => {
+                  if (e.target.value.trim() === '') {
+                    dispatch(setSearch(''))
+                    dispatch(fetchSongs({ page: 1, search: '' }))
+                  }
+                }}
+                style={{ borderRadius: 50 }}
+              />
+              <button
+                className="btn gradient-btn text-white px-4 d-flex align-items-center gap-2"
+                type="submit"
+                style={{ borderRadius: 50 }}
+              >
+                <FaSearch />
+                Search
+              </button>
+            </div>
+          </form>
+
         </div>
-      </form>
+        <div className="col"></div>
+      </div>
+
       {loading ? (
         <div className="text-center py-5">
-          <div className="spinner-border text-primary" role="status"></div>
+          <div className="spinner-border text-dark" role="status"></div>
         </div>
       ) : (
         <>
-          <div className="row row-cols-1 row-cols-md-4 g-5 mt-2 mb-5">
+          <div className="row row-cols-1 row-cols-md-3 g-5 mt-2 mb-5">
             {songs.map(song => (
-                <CardSong key={song.id} song={song} />
+              <CardSong key={song.id} song={song} />
             ))}
           </div>
           <nav className="mt-4 d-flex justify-content-center">
-            <ul className="pagination">
+            <ul className="pagination gap-2">
+              {/* Tombol Prev */}
               <li className={`page-item ${page === 1 ? 'disabled' : ''}`}>
-                <button className="page-link" onClick={() => setPage(page - 1)}>Previous</button>
+                <button
+                  className="page-link rounded-circle shadow-sm bg-white text-dark"
+                  onClick={() => dispatch(setPage(page - 1))}
+                  style={{ border: 'none' }}
+                >
+                  &laquo;
+                </button>
               </li>
-              {[...Array(totalPages)].map((_, i) => (
-                <li key={i} className={`page-item ${page === i + 1 ? 'active' : ''}`}>
-                  <button className="page-link" onClick={() => setPage(i + 1)}>{i + 1}</button>
-                </li>
-              ))}
+
+              {Array.from({ length: 3 }, (_, i) => {
+                let start = Math.max(1, Math.min(page - 1, totalPages - 2));
+                const pageNumber = start + i;
+
+                if (pageNumber > totalPages) return null;
+
+                return (
+                  <li key={pageNumber} className={`page-item ${page === pageNumber ? 'active' : ''}`}>
+                    <button
+                      className={`page-link rounded-circle px-3 shadow-sm ${
+                        page === pageNumber ? 'btn gradient-btn text-white' : 'bg-white text-dark'
+                      }`}
+                      onClick={() => dispatch(setPage(pageNumber))}
+                      style={{ border: 'none' }}
+                    >
+                      {pageNumber}
+                    </button>
+                  </li>
+                );
+              })}
+              
               <li className={`page-item ${page === totalPages ? 'disabled' : ''}`}>
-                <button className="page-link" onClick={() => setPage(page + 1)}>Next</button>
+                <button
+                  className="page-link rounded-circle shadow-sm bg-white text-dark"
+                  onClick={() => dispatch(setPage(page + 1))}
+                  style={{ border: 'none' }}
+                >
+                  &raquo;
+                </button>
               </li>
             </ul>
           </nav>
         </>
       )}
     </div>
+    </>
   )
 }
 

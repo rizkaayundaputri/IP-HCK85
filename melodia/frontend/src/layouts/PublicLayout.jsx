@@ -11,7 +11,7 @@ const PublicLayout = () => {
         return (
         <div className="custom-bg text-dark">
             <div className="d-flex align-items-center justify-content-center min-vh-100 px-2">
-            <div className="text-center">
+            <div className="text-center text-white">
                 <h1 className="display-1 fw-bold">401</h1>
                 <p className="fs-2 fw-medium mt-4">Oops! Unauthorized</p>
                 <p className="mt-4 mb-5">Please login first to access this page!</p>

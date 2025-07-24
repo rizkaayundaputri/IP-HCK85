@@ -4,59 +4,105 @@ import Swal from 'sweetalert2'
 import http from '../lib/http'
 
 const Register = () => {
-  const[form,setForm] = useState({
-        name: "",
-        email: "",
-        password: ""
-    })
-    const navigate = useNavigate()
-    function handleChange(e) {
-        setForm({...form,[e.target.name]:e.target.value})
-    }
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: ""
+  })
 
-    async function submitRegister(e) {
-        e.preventDefault()
-        try {
-            const response = await http.post('/register',form)
-            navigate('/login')
-        } catch (error) {
-            Swal.fire({
-                title: 'Error!',
-                text: error.response?.data?.message || 'Something went wrong',
-                icon: 'error',
-                confirmButtonText: 'Cool'
-                })
-        }
+  const navigate = useNavigate()
+
+  function handleChange(e) {
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
+
+  async function submitRegister(e) {
+    e.preventDefault()
+    try {
+      const response = await http.post('/register', form)
+      navigate('/login')
+    } catch (error) {
+      Swal.fire({
+        title: 'Error!',
+        text: error.response?.data?.message || 'Something went wrong',
+        icon: 'error',
+        confirmButtonText: 'Cool'
+      })
     }
-    
-    if(localStorage.getItem('access_token')){
-        return <Navigate to = "/"/>
-    }
-    return (
-    <div className='row vh-100 align-items-center mx-5 text-start'>
-        <div className='col d-none d-md-block'></div>
-        <div className='col d-md-flex'>
-            <form onSubmit={submitRegister}>
-                <div>
-                    <h1>Crreate your account</h1>
-                    <p>Join many clubs here!</p>
-                <div className="mb-3">
-                    <input type="text" className="form-control" placeholder='Name' name='name' onChange={handleChange}/>
-                </div>
-                <div className="mb-3">
-                    <input type="email" className="form-control" placeholder='Email' name='email' onChange={handleChange}/>
-                </div>
-                <div className="mb-3">
-                    <input type="password" className="form-control" placeholder='Password' name='password' onChange={handleChange}/>
-                </div>
-                <button type="submit" className="btn btn-primary w-100 mt-5">Register</button>
-                </div>
-                <div className='text-center mt-3'>
-                    <p>You have account? <Link to='/login'> Login now</Link></p>
-                </div>
-        </form>
+  }
+
+  if (localStorage.getItem('access_token')) {
+    return <Navigate to="/" />
+  }
+
+  return (
+    <div className="d-flex justify-content-center align-items-center vh-100 bg-white">
+      <form
+        onSubmit={submitRegister}
+        className="p-4 p-md- shadow rounded-4"
+        style={{
+          width: '100%',
+          maxWidth: '420px',
+          backgroundColor: '#fff'
+        }}
+      >
+        <div className="mb-4 text-center">
+          <h2 className="fw-bold" style={{ color: '#000066' }}>
+            Create Account
+          </h2>
+          <p className="text-muted">Join and explore the music</p>
         </div>
-        <div className='col'></div>
+
+        <div className="mb-3">
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            onChange={handleChange}
+            className="form-control rounded-pill py-2 px-3"
+          />
+        </div>
+
+        <div className="mb-3">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            onChange={handleChange}
+            className="form-control rounded-pill py-2 px-3"
+          />
+        </div>
+
+        <div className="mb-3">
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={handleChange}
+            className="form-control rounded-pill py-2 px-3"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="btn w-100 rounded-pill py-2 mt-3"
+          style={{
+            backgroundColor: '#000000ff',
+            color: 'white',
+          }}
+        >
+          Register
+        </button>
+
+        <div className="text-center mt-4">
+          <p className="text-muted" style={{ fontSize: '0.95rem' }}>
+            Already have an account?{" "}
+            <Link to="/login" className="fw-semibold text-decoration-none" style={{ color: '#000066' }}>
+              Login
+            </Link>
+          </p>
+        </div>
+      </form>
     </div>
   )
 }
