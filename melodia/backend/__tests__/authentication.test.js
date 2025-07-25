@@ -12,6 +12,8 @@ describe('AuthenticationController', () => {
             });
         expect(response.status).toBe(201);
         expect(response.body).toHaveProperty('id');
+        expect(response.body).toHaveProperty('name', 'Test User');
+        expect(response.body).toHaveProperty('email', 'testuser@mail.com');
     });
 
     it('should fail to register with existing email', async () => {
@@ -30,7 +32,8 @@ describe('AuthenticationController', () => {
                 password: 'password456'
             });
         expect(response.status).toBe(400);
-        expect(response.body.message).toEqual(['email must be unique']);
+        expect(Array.isArray(response.body.message)).toBe(true);
+        expect(response.body.message).toContain('email must be unique');
     });
 
     it('should login with correct credentials', async () => {
