@@ -83,21 +83,22 @@ const MyPlaylist = () => {
 
   return (
 
-    <>  
+    <>
     <style>{`
-      .gradient-btn {
-        background: linear-gradient(135deg, #041143ff 0%, #251980ff 100%);
-        border: none;
-        transition: all 0.3s ease;
-      }
-    `}</style>
-
+    .gradient-btn {
+            background: linear-gradient(135deg, #0b1a54ff 0%, #14077aff 100%);
+            border: none;
+            transition: all 0.3s ease;
+          }
+    `}
+    </style>
+    
     <div className="container py-5 vh-100">
       <div className="row align-items-center mb-4 px-2 px-md-0" >
         <div className="col"></div>
         <div className="col">
           <form onSubmit={handleCreatePlaylist}>
-            <div className="d-flex gap-2 rounded-pill overflow-hidden shadow-sm">
+            <div className="input-group rounded-pill overflow-hidden shadow-sm">
               <input
                 type="text"
                 className="form-control border-0 px-4 py-2"
@@ -108,14 +109,13 @@ const MyPlaylist = () => {
               />
               <button
                 type="submit"
-                className="btn gradient-btn text-white px-4 d-flex align-items-center gap-2"
+                className="btn gradient-btn text-white px-4 d-flex align-items-center gap-2 mx-3"
                 style={{ fontSize: "0.9rem", borderRadius: 50 }}
               >
-                <FaPlus /> Create
+                <FaPlus className="me-2" /> Create
               </button>
             </div>
           </form>
-
         </div>
         <div className="col"></div>
         <style>{`
@@ -195,131 +195,56 @@ const MyPlaylist = () => {
       )}
 
       {/* MODAL */}
-{/* MODAL */}
-{showModal && (
-  <div
-    className="modal fade show"
-    style={{
-      display: 'block',
-      background: 'rgba(0, 0, 0, 0.5)',
-    }}
-  >
-    <div className="modal-dialog modal-dialog-centered">
-      <div
-        className="modal-content border-0 shadow-lg"
-        style={{
-          borderRadius: '1.5rem', // ✅ Lebih melengkung
-          overflow: 'hidden',     // biar kontennya tidak bocor keluar radius
-        }}
-      >
+      {showModal && (
         <div
-          className="modal-header border-0"
-          style={{
-            backgroundColor: '#f8f9fa',
-            borderTopLeftRadius: '1.5rem',
-            borderTopRightRadius: '1.5rem',
-          }}
+          className="modal fade show"
+          style={{ display: 'block', background: 'rgba(0,0,0,0.4)' }}
         >
-          <h5 className="modal-title">{`Playlist: ${modalPlaylistName}`}</h5>
-          <button
-            type="button"
-            className="btn-close"
-            onClick={() => setShowModal(false)}
-          ></button>
-        </div>
-
-        <div className="modal-body">
-          {modalSongs.length === 0 ? (
-            <div className="text-center text-muted">
-              No songs in this playlist.
-            </div>
-          ) : (
-            <ul className="list-group list-group-flush rounded">
-              {modalSongs.map((song) => (
-                <li
-                  className="list-group-item d-flex align-items-center gap-2"
-                  key={song.id}
-                  style={{ border: 'none' }}
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content rounded-4 shadow-lg border-0">
+              <div className="modal-header border-0 pb-0">
+                <h5 className="modal-title">Playlist: {modalPlaylistName}</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={() => setShowModal(false)}
+                ></button>
+              </div>
+              <div className="modal-body pt-2">
+                {modalSongs.length === 0 ? (
+                  <div className="text-center text-muted">No songs in this playlist.</div>
+                ) : (
+                  <ul className="list-group list-group-flush">
+                    {modalSongs.map(song => (
+                      <li
+                        className="list-group-item d-flex align-items-center gap-2 border-0"
+                        key={song.id}
+                      >
+                        <FaMusic /> {song.title}
+                        <span
+                          className="ms-auto text-secondary"
+                          style={{ fontSize: '0.85em' }}
+                        >
+                          {song.artist}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              <div className="modal-footer border-0 pt-0">
+                <button
+                  className="btn btn-outline-dark rounded-pill px-4"
+                  onClick={() => setShowModal(false)}
                 >
-                  <FaMusic /> {song.title}
-                  <span
-                    className="ms-auto text-secondary"
-                    style={{ fontSize: '0.85em' }}
-                  >
-                    {song.artist}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div
-          className="modal-footer border-0"
-          style={{
-            backgroundColor: '#f8f9fa',
-            borderBottomLeftRadius: '1.5rem',
-            borderBottomRightRadius: '1.5rem',
-          }}
-        >
-          <button
-            className="btn btn-outline-secondary rounded-pill px-4"
-            onClick={() => setShowModal(false)}
-          >
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-)}
-
-
-
-<style>{`
-  .modal-content {
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-  }
-
-  .modal-header {
-    border-bottom: none;
-    padding: 1rem 1.5rem;
-  }
-
-  .modal-footer {
-    border-top: none;
-    padding: 1rem 1.5rem;
-  }
-
-  .btn-close {
-    background: transparent;
-    border: none;
-    font-size: 1.2rem;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-  }
-
-  .btn-close:hover {
-    opacity: 1;
-  }
-
-  .list-group-item {
-    background: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    margin-bottom: 0.5rem;
-    padding: 0.75rem 1rem;
-    display: flex;
-    align-items: center;
-  }
-
-  .list-group-item:hover {
-    background: #e9ecef;
-  }
-`}</style>
+      )}
     </div>
     </>
   )

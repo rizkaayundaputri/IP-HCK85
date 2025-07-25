@@ -38,24 +38,12 @@ const Navbar = () => {
           }
 
           @media (max-width: 991.98px) {
-            .navbar-collapse {
-              background: linear-gradient(90deg, #020264ff, #202020ff);
-              border-radius: 0 0 1rem 1rem;
-              padding: 1rem;
-            }
-
             .navbar-nav {
-              flex-direction: column !important;
               align-items: flex-start !important;
             }
 
-            .nav-item {
-              width: 100%;
-            }
-
             .nav-link {
-              width: 100%;
-              padding-left: 0;
+              padding-left: 0.5rem;
             }
           }
         `}
@@ -81,9 +69,9 @@ const Navbar = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          {/* Menu Kanan */}
+          {/* Menu */}
           <div className="collapse navbar-collapse justify-content-end" id="navbarContent">
-            <ul className="navbar-nav gap-2 gap-lg-4">
+            <ul className="navbar-nav flex-column flex-lg-row gap-2 gap-lg-4 mt-2 mt-lg-0">
               <li className="nav-item">
                 <NavLink className="nav-link d-flex align-items-center text-white" to="/">
                   <FaHome className="me-2" /> Home

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { NavLink } from 'react-router'
 import { FaPlus, FaAlignLeft } from 'react-icons/fa'
 import http from '../lib/http'
+import Swal from 'sweetalert2'
+
 
 const CardSong = ({ song }) => {
   const [showModal, setShowModal] = useState(false)
@@ -22,19 +24,34 @@ const CardSong = ({ song }) => {
   }
 
   const handleAddToPlaylist = async () => {
-    if (!selectedPlaylist) return alert('Pilih playlist terlebih dahulu!')
-    try {
-      console.log("Mengirim songId:", song.id, "ke playlist:", selectedPlaylist)
-      await http.post(`/playlists/${selectedPlaylist}/songs`, { songId: song.id }, {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('access_token')}` }
-      })
-      alert('Berhasil menambahkan ke playlist!')
-      setShowModal(false)
-      setSelectedPlaylist('')
-    } catch {
-      alert('Gagal menambahkan ke playlist!')
-    }
+  if (!selectedPlaylist) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Oops...',
+      text: 'Please select a playlist first!',
+    });
+    return;
   }
+  try {
+    console.log("Mengirim songId:", song.id, "ke playlist:", selectedPlaylist);
+    await http.post(`/playlists/${selectedPlaylist}/songs`, { songId: song.id }, {
+      headers: { 'Authorization': `Bearer ${localStorage.getItem('access_token')}` }
+    });
+    Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: 'Song has been added to the playlist.',
+    });
+    setShowModal(false);
+    setSelectedPlaylist('');
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Failed!',
+      text: 'Failed to add the song to the playlist. Please try again.',
+    });
+  }
+};
 
   return (
     <div className="col" key={song.id}>

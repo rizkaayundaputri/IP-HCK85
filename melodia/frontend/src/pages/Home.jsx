@@ -14,49 +14,36 @@ const Home = () => {
 
   function handleSearch(e) {
     e.preventDefault()
-    const searchValue = e.target.search.value.trim()
-
-    if (searchValue === '') {
-      // Reset search and fetch all songs if input is empty
-      dispatch(setSearch(''))
-      dispatch(fetchSongs({ page: 1, search: '' }))
-    } else {
-      // Update search state with input value
-      dispatch(setSearch(searchValue))
-    }
+    const searchValue = e.target.search.value
+    dispatch(setSearch(searchValue))
   }
 
   return (
-
     <>
-   <style>{`gradient-btn {
-            background: linear-gradient(135deg, #0b1a54ff 0%, #341ce7ff 100%);
+    <style>{`
+    .gradient-btn {
+            background: linear-gradient(135deg, #0b1a54ff 0%, #14077aff 100%);
             border: none;
             transition: all 0.3s ease;
-          }`}
-   </style>
+          }
+    `}
+    </style>
     <div className="container py-5 min-vh-100 ">
       <div className="row mb-4 align-items-center justify-content-between">
         <div className="col"></div>
         <div className="col">
           <form onSubmit={handleSearch}>
-            <div className="d-flex rounded-pill overflow-hidden shadow-sm gap-2">
+            <div className="input-group rounded-pill overflow-hidden shadow-sm">
               <input
                 type="text"
                 name="search"
-                className="form-control border-0 px-4 py-2"
+                className="form-control  border-0 px-4 py-2"
                 placeholder="Search by title or artist..."
                 defaultValue={search}
-                onInput={(e) => {
-                  if (e.target.value.trim() === '') {
-                    dispatch(setSearch(''))
-                    dispatch(fetchSongs({ page: 1, search: '' }))
-                  }
-                }}
                 style={{ borderRadius: 50 }}
               />
               <button
-                className="btn gradient-btn text-white px-4 d-flex align-items-center gap-2"
+                className="btn gradient-btn text-white px-4 d-flex align-items-center gap-2 mx-3"
                 type="submit"
                 style={{ borderRadius: 50 }}
               >
@@ -65,7 +52,6 @@ const Home = () => {
               </button>
             </div>
           </form>
-
         </div>
         <div className="col"></div>
       </div>

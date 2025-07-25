@@ -34,9 +34,12 @@ const Lyric = () => {
       ) : (
         <>
           <div className="text-center mb-4">
-            <h1 className="fw-bold text-light display-5">
-              <FaMusic /> {song?.title}
-            </h1>
+            <h1
+              className="fw-bold text-light display-5 px-4 py-2 rounded-pill d-inline-block"
+              style={{ backgroundColor: '#001f3f' }}
+            >
+              <FaMusic className="me-2" /> {song?.title}
+            </h1><br/>
             <div className="badge bg-secondary-subtle text-dark px-3 py-2 rounded-pill shadow-sm">
               {song?.artist}
             </div>
