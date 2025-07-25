@@ -2,16 +2,19 @@ const {User} = require ('../models/index.js')
 const {signToken} = require ('../helpers/jwt.js')
 const { comparePassword } = require('../helpers/bcrypt.js')
 const { OAuth2Client } = require('google-auth-library');
+const sendEmail = require('../helpers/nodemailer.js');
 
 class UserController {
     static async register(req,res,next){
         try {
          const {name,email,password} = req.body
          let data = await User.create({name,email,password})
+         
+        sendEmail(data.email)
          res.status(201).json({name: data.name, id : data.id, email: data.email})        
         } catch (error) {
-         next(error)   
-         console.log(error);
+          // console.log(error);
+         next(error)            
          
         }
     }

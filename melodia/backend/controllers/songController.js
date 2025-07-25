@@ -6,7 +6,7 @@ class SongController {
     static async findAll(req, res, next) {
         try {
             const page = parseInt(req.query.page) || 1;
-            const limit = 20;
+            const limit = 15;
             const offset = (page - 1) * limit;
             const search = req.query.search || '';
 
