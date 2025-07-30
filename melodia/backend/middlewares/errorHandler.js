@@ -1,6 +1,6 @@
 
 function errorHandler(error,req,res,next) {
-    // console.error("Global Error:", error)
+     console.error("Global Error:", error)
     if (error.name === 'Unauthorized') {
         return res.status(401).json({message: error.message})
     }

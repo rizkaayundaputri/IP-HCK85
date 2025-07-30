@@ -65,6 +65,13 @@ Login pengguna dan mendapatkan access token.
     "message": "Invalid email/password"
   }
   ```
+- **400 Bad Request**: Jika email/password tidak diisi.
+  ```json
+  {
+    "message": "Email and Password required"
+  }
+
+  ```
 ---
 
 ### POST /google-login
@@ -129,13 +136,6 @@ Authorization: Bearer <jwt_token>
   "totalPages": 5
 }
 ```
-**Error Response:**
-- **401 Unauthorized**: Jika token tidak valid.
-  ```json
-  {
-    "message": "Invalid token"
-  }
-  ```
 
 ---
 
@@ -199,13 +199,6 @@ Authorization: Bearer <jwt_token>
   }
 ]
 ```
-**Error Response:**
-- **401 Unauthorized**: Jika token tidak valid.
-  ```json
-  {
-    "message": "Invalid token"
-  }
-  ```
 
 ---
 
@@ -393,20 +386,7 @@ Authorization: Bearer <jwt_token>
 
 ## Response Error
 
-### 400 Bad Request
-**Untuk input tidak valid:**
-```json
-{
-  "message": "Playlist name required"
-}
-```
 
-**Untuk error validasi Sequelize:**
-```json
-{
-  "message": ["Name is required", "Email is required"]
-}
-```
 
 ### 401 Unauthorized
 **Token tidak valid:**
@@ -416,19 +396,6 @@ Authorization: Bearer <jwt_token>
 }
 ```
 
-**Google token tidak valid:**
-```json
-{
-  "message": "Invalid google token"
-}
-```
-
-**Email/password salah:**
-```json
-{
-  "message": "Invalid email/password"
-}
-```
 
 ### 403 Forbidden
 ```json
@@ -437,20 +404,6 @@ Authorization: Bearer <jwt_token>
 }
 ```
 
-### 404 Not Found
-**Playlist tidak ditemukan:**
-```json
-{
-  "message": "Playlist not found"
-}
-```
-
-**Song tidak ditemukan:**
-```json
-{
-  "message": "Song not found"
-}
-```
 
 ### 500 Internal Server Error
 ```json

@@ -13,7 +13,7 @@ class UserController {
         sendEmail(data.email)
          res.status(201).json({name: data.name, id : data.id, email: data.email})        
         } catch (error) {
-          // console.log(error);
+          console.log(error);
          next(error)            
          
         }

@@ -26,7 +26,7 @@ const Register = () => {
         title: 'Error!',
         text: error.response?.data?.message || 'Something went wrong',
         icon: 'error',
-        confirmButtonText: 'Cool'
+        confirmButtonText: 'Close'
       })
     }
   }

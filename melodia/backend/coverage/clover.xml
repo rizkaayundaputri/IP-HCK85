@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1753416656868" clover="3.2.0">
-  <project timestamp="1753416656868" name="All files">
-    <metrics statements="268" coveredstatements="222" conditionals="78" coveredconditionals="56" methods="34" coveredmethods="31" elements="380" coveredelements="309" complexity="0" loc="268" ncloc="268" packages="5" files="15" classes="15"/>
+<coverage generated="1753843727245" clover="3.2.0">
+  <project timestamp="1753843727245" name="All files">
+    <metrics statements="270" coveredstatements="224" conditionals="78" coveredconditionals="56" methods="34" coveredmethods="31" elements="382" coveredelements="311" complexity="0" loc="270" ncloc="270" packages="5" files="15" classes="15"/>
     <package name="backend">
       <metrics statements="25" coveredstatements="25" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="app.js" path="C:\Users\ThinkPad\Desktop\Hacktive\Hacktive8\Phase2\CH\IP-HCK85\melodia\backend\app.js">
@@ -34,7 +34,7 @@
       </file>
     </package>
     <package name="backend.controllers">
-      <metrics statements="125" coveredstatements="90" conditionals="40" coveredconditionals="29" methods="12" coveredmethods="9"/>
+      <metrics statements="126" coveredstatements="91" conditionals="40" coveredconditionals="29" methods="12" coveredmethods="9"/>
       <file name="playlistController.js" path="C:\Users\ThinkPad\Desktop\Hacktive\Hacktive8\Phase2\CH\IP-HCK85\melodia\backend\controllers\playlistController.js">
         <metrics statements="67" coveredstatements="51" conditionals="20" coveredconditionals="15" methods="7" coveredmethods="6"/>
         <line num="1" count="7" type="stmt"/>
@@ -130,7 +130,7 @@
         <line num="55" count="7" type="stmt"/>
       </file>
       <file name="userController.js" path="C:\Users\ThinkPad\Desktop\Hacktive\Hacktive8\Phase2\CH\IP-HCK85\melodia\backend\controllers\userController.js">
-        <metrics statements="37" coveredstatements="26" conditionals="12" coveredconditionals="8" methods="3" coveredmethods="2"/>
+        <metrics statements="38" coveredstatements="27" conditionals="12" coveredconditionals="8" methods="3" coveredmethods="2"/>
         <line num="1" count="7" type="stmt"/>
         <line num="2" count="7" type="stmt"/>
         <line num="3" count="7" type="stmt"/>
@@ -141,6 +141,7 @@
         <line num="11" count="11" type="stmt"/>
         <line num="13" count="5" type="stmt"/>
         <line num="14" count="5" type="stmt"/>
+        <line num="16" count="6" type="stmt"/>
         <line num="17" count="6" type="stmt"/>
         <line num="23" count="0" type="stmt"/>
         <line num="24" count="0" type="stmt"/>
@@ -210,7 +211,7 @@
       </file>
     </package>
     <package name="backend.middlewares">
-      <metrics statements="39" coveredstatements="32" conditionals="26" coveredconditionals="19" methods="3" coveredmethods="3"/>
+      <metrics statements="40" coveredstatements="33" conditionals="26" coveredconditionals="19" methods="3" coveredmethods="3"/>
       <file name="authentication.js" path="C:\Users\ThinkPad\Desktop\Hacktive\Hacktive8\Phase2\CH\IP-HCK85\melodia\backend\middlewares\authentication.js">
         <metrics statements="20" coveredstatements="18" conditionals="8" coveredconditionals="6" methods="1" coveredmethods="1"/>
         <line num="1" count="7" type="stmt"/>
@@ -235,7 +236,8 @@
         <line num="37" count="7" type="stmt"/>
       </file>
       <file name="errorHandler.js" path="C:\Users\ThinkPad\Desktop\Hacktive\Hacktive8\Phase2\CH\IP-HCK85\melodia\backend\middlewares\errorHandler.js">
-        <metrics statements="19" coveredstatements="14" conditionals="18" coveredconditionals="13" methods="2" coveredmethods="2"/>
+        <metrics statements="20" coveredstatements="15" conditionals="18" coveredconditionals="13" methods="2" coveredmethods="2"/>
+        <line num="3" count="22" type="stmt"/>
         <line num="4" count="22" type="cond" truecount="2" falsecount="0"/>
         <line num="5" count="5" type="stmt"/>
         <line num="8" count="17" type="cond" truecount="2" falsecount="0"/>
